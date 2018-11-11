@@ -1,12 +1,16 @@
 // This example is derived from the ssd_mobilenet_object_detection opencv demo
 // and adapted to be used with Intel RealSense Cameras
 // Please see https://github.com/opencv/opencv/blob/master/LICENSE
+// under the Intel® Core™ i5-3570 CPU @ 3.40GHz × 4 
 
 #include <opencv2/dnn.hpp>
 #include <librealsense2/rs.hpp>
 #include "cv-helpers.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
+#include "iostream"
+#include "time.h"
+
 
 const size_t inWidth      = 300;
 const size_t inHeight     = 300;
@@ -73,6 +77,9 @@ int main(int argc, char** argv) try
 
     while (cvGetWindowHandle(window_name))
     {
+
+        // auto start_time = clock();
+
         // Wait for the next set of frames
         auto data = pipe.wait_for_frames();
         // Make sure the frames are spatially aligned
@@ -178,6 +185,9 @@ int main(int argc, char** argv) try
 
         imshow(window_name, color_mat);
         if (waitKey(1) >= 0) break;
+
+        // auto end_time = clock();
+        // std::cout<<1000.000*(end_time-start_time)/CLOCKS_PER_SEC<<std::endl;
     }
     
 

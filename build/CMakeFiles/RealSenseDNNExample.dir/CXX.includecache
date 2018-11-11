@@ -185,6 +185,10 @@ opencv2/highgui/highgui.hpp
 /home/jessy/Desktop/dnn_example/opencv2/highgui/highgui.hpp
 opencv2/imgproc/imgproc.hpp
 /home/jessy/Desktop/dnn_example/opencv2/imgproc/imgproc.hpp
+iostream
+/home/jessy/Desktop/dnn_example/iostream
+time.h
+/home/jessy/Desktop/dnn_example/time.h
 
 /usr/local/include/opencv/cxcore.h
 opencv2/core/core_c.h
