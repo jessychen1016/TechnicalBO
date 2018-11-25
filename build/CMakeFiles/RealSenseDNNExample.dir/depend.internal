@@ -26,7 +26,6 @@ CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o
  ../include/librealsense2/rs_advanced_mode.hpp
  /home/jessy/Desktop/dnn_example/cv-helpers.hpp
  /home/jessy/Desktop/dnn_example/rs-dnn.cpp
- /usr/local/include/opencv/cv.h
  /usr/local/include/opencv/cxcore.h
  /usr/local/include/opencv2/calib3d.hpp
  /usr/local/include/opencv2/calib3d/calib3d_c.h

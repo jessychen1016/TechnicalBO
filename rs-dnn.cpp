@@ -10,7 +10,6 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include <opencv2/core/core.hpp>
-#include <cv.h>
 #include <cmath>
 
 #include "iostream"
@@ -22,8 +21,17 @@ const size_t inHeight     = 900;
 const float WHRatio       = inWidth / (float)inHeight;
 const float inScaleFactor = 0.007843f;
 const float meanVal       = 127.5;
+int mat_columns;
+int mat_rows;
+int length_to_mid;
 
+double depth_length_coefficient(double depth){
+    
+    double length;
+    length = 48.033*depth+5.4556;
+    return length;
 
+}
 
 int main(int argc, char** argv) try
 {
@@ -159,13 +167,13 @@ int main(int argc, char** argv) try
     cvCreateTrackbar("LowV", "Control", &iLowV, 255); //Value (0 - 255)
     cvCreateTrackbar("HighV", "Control", &iHighV, 255);
 
-    double distance[60] = {0};
-    double last_meter = 0;
-    double this_meter = 0;
+    // double distance[60] = {0};
+    double last_x_meter = 0;
+    double this_x_meter = 0;
     double y_vel = 0;
     double x_vel = 0;
     double velocity;
-    int para1 = 200 ,para2 = 50;
+    // int para1 = 200 ,para2 = 50;
 
 
      while (cvGetWindowHandle(window_name))
@@ -204,130 +212,134 @@ int main(int argc, char** argv) try
         GaussianBlur(color_mat,Gcolor_mat,Size(11,11),0);
         
 
-
         // Crop both color and depth frames
         Gcolor_mat = Gcolor_mat(crop);
         depth_mat = depth_mat(crop);
 
          //start of mod
-        
+        mat_rows = Gcolor_mat.rows;
+        mat_columns =Gcolor_mat.cols;
+        // cout<< mat_columns<< endl;
+        Mat imgHSV;
+        vector<Mat> hsvSplit;
+        cvtColor(Gcolor_mat, imgHSV, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
     
-          Mat imgHSV;
-          vector<Mat> hsvSplit;
-          cvtColor(Gcolor_mat, imgHSV, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
-       
-          //因为我们读取的是彩色图，直方图均衡化需要在HSV空间做
-          split(imgHSV, hsvSplit);
-          equalizeHist(hsvSplit[2],hsvSplit[2]);
-          merge(hsvSplit,imgHSV);
-          Mat imgThresholded;
-       
-          inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), imgThresholded); //Threshold the image
-       
-          //开操作 (去除一些噪点)
-          Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
-          morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-       
-          //闭操作 (连接一些连通域)
-          morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-       
-          imshow("Thresholded Image", imgThresholded); //show the thresholded image
-        //   imshow("Original", Gcolor_mat); //show the original image
-       
-          char key = (char) waitKey(1);
-                    
-           //end of mod
-        //    vector<Vec3f> circles;
-        //    HoughCircles(imgThresholded,circles,CV_HOUGH_GRADIENT,1,1000,para1,para2,0,1000);
-        //    Point hough_center(cvRound(circles[0][0]), cvRound(circles[0][1]));
+        //因为我们读取的是彩色图，直方图均衡化需要在HSV空间做
+        split(imgHSV, hsvSplit);
+        equalizeHist(hsvSplit[2],hsvSplit[2]);
+        merge(hsvSplit,imgHSV);
+        Mat imgThresholded;
+    
+        inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), imgThresholded); //Threshold the image
+    
+        //开操作 (去除一些噪点)
+        Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
+        morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
+    
+        //闭操作 (连接一些连通域)
+        morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
+    
+        imshow("Thresholded Image", imgThresholded); //show the thresholded image
+    //   imshow("Original", Gcolor_mat); //show the original image
+    
+        char key = (char) waitKey(1);
+                
+        //end of mod
+    //    vector<Vec3f> circles;
+    //    HoughCircles(imgThresholded,circles,CV_HOUGH_GRADIENT,1,1000,para1,para2,0,1000);
+    //    Point hough_center(cvRound(circles[0][0]), cvRound(circles[0][1]));
 
-            vector<vector<cv::Point>> contours ;
-            cv::findContours(imgThresholded,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
-            double maxArea = 0;
-            vector<cv::Point> maxContour;
-            for(size_t i = 0; i < contours.size(); i++)
+        vector<vector<cv::Point>> contours ;
+        cv::findContours(imgThresholded,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
+        double maxArea = 0;
+        vector<cv::Point> maxContour;
+        for(size_t i = 0; i < contours.size(); i++)
+        {
+            double area = cv::contourArea(contours[i]);
+            if (area > maxArea)
             {
-                double area = cv::contourArea(contours[i]);
-                if (area > maxArea)
-                {
-                    maxArea = area;
-                    maxContour = contours[i];
-                }
+                maxArea = area;
+                maxContour = contours[i];
             }
-            cv::Rect maxRect = cv::boundingRect(maxContour);
+        }
+        cv::Rect maxRect = cv::boundingRect(maxContour);
 
-            // auto object =  maxRect & Rect (0,0,depth_mat.cols, depth_mat.rows );
-            auto object =  maxRect ;
-            auto moment = cv::moments(maxContour,true);
-            Point moment_center (moment.m10 / moment.m00, moment.m01/moment.m00);
-            // std::cout<<"x="<< moment.m10 / moment.m00<<"  y="<<moment.m01/moment.m00<<std::endl;
-            // std::cout<<"depth"<< depth_mat.at<double>((int)moment.m01 / moment.m00,(int)moment.m10/moment.m00)<<std::endl;
+        // auto object =  maxRect & Rect (0,0,depth_mat.cols, depth_mat.rows );
+        auto object =  maxRect ;
+        auto moment = cv::moments(maxContour,true);
+        // std::cout<<"x="<< moment.m10 / moment.m00<<"  y="<<moment.m01/moment.m00<<std::endl;
+        // std::cout<<"depth"<< depth_mat.at<double>((int)moment.m01 / moment.m00,(int)moment.m10/moment.m00)<<std::endl;
+        
+        // Calculate mean depth inside the detection region
+        // This is a very naive way to estimate objects depth
+        // but it is intended to demonstrate how one might 
+        // use depht data in general
+        Scalar depth_m;            
+        if (moment.m00==0 ){
+            moment.m00 = 1;
+        }
+        Point moment_center (moment.m10 / moment.m00, moment.m01/moment.m00);
+        depth_m = depth_mat.at<double>((int)moment.m01 / moment.m00,(int)moment.m10/moment.m00);
+        double magic_distance = depth_m[0] * 1.062;
+        std::ostringstream ss;
+        ss << " Ball Detected ";
+        ss << std::setprecision(3) << magic_distance << " meters away" ;
+        String conf(ss.str());
+        // distance[i]=magic_distance;
 
-            
-            // Calculate mean depth inside the detection region
-            // This is a very naive way to estimate objects depth
-            // but it is intended to demonstrate how one might 
-            // use depht data in general
-            // Scalar m = mean(depth_mat(object));
-            Scalar m = depth_mat.at<double>((int)moment.m01 / moment.m00,(int)moment.m10/moment.m00);
-            double magic_distance = m[0] * 1.082;
-            std::ostringstream ss;
-            ss << " Ball Detected ";
-            ss << std::setprecision(3) << magic_distance << " meters away" ;
-            String conf(ss.str());
-            
+        rectangle(Gcolor_mat, object, Scalar(0, 255, 0));
+        int baseLine = 0;
+        Size labelSize = getTextSize(ss.str(), FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
 
-            // distance[i]=magic_distance;
-
-            rectangle(Gcolor_mat, object, Scalar(0, 255, 0));
-            int baseLine = 0;
-            Size labelSize = getTextSize(ss.str(), FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
-
-            auto center = (object.br() + object.tl())*0.5;
-            center.x = center.x - labelSize.width / 2;
-            center.y = center.y + 30 ;
+        auto center = (object.br() + object.tl())*0.5;
+        center.x = center.x - labelSize.width / 2;
+        center.y = center.y + 30 ;
 
 
-            velocity = sqrt(y_vel*y_vel + x_vel*x_vel);
-            std::ostringstream ss_v;
-            ss_v << " The speed is ";
-            ss_v << std::setprecision(3) << velocity << " m/s" ;
-            String conf_v(ss_v.str());
-            Size labelSize_v = getTextSize(ss_v.str(), FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+        velocity = sqrt(y_vel*y_vel + x_vel*x_vel);
+        std::ostringstream ss_v;
+        ss_v << " The speed is ";
+        ss_v << std::setprecision(3) << velocity << " m/s" ;
+        String conf_v(ss_v.str());
+        Size labelSize_v = getTextSize(ss_v.str(), FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
 
-            auto center_v = (object.br() + object.tl())*0.5;
-            center_v.x = 80- labelSize_v.width / 2;
-            center_v.y = 475;
+        auto center_v = (object.br() + object.tl())*0.5;
+        center_v.x = 80- labelSize_v.width / 2;
+        center_v.y = 475;
 
-            rectangle(Gcolor_mat, Rect(Point(center_v.x, center_v.y - labelSize_v.height),
-                Size(labelSize_v.width, labelSize_v.height + baseLine)),
-                Scalar(255, 255, 255), CV_FILLED);
-            putText(Gcolor_mat, ss_v.str(), center_v,
-                    FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0,0,0));
-            
+        rectangle(Gcolor_mat, Rect(Point(center_v.x, center_v.y - labelSize_v.height),
+            Size(labelSize_v.width, labelSize_v.height + baseLine)),
+            Scalar(255, 255, 255), CV_FILLED);
+        putText(Gcolor_mat, ss_v.str(), center_v,
+                FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0,0,0));
+        
 
-            rectangle(Gcolor_mat, Rect(Point(center.x, center.y - labelSize.height),
-                Size(labelSize.width, labelSize.height + baseLine)),
-                Scalar(255, 255, 255), CV_FILLED);
-            putText(Gcolor_mat, ss.str(), center,
-                    FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0,0,0));
+        rectangle(Gcolor_mat, Rect(Point(center.x, center.y - labelSize.height),
+            Size(labelSize.width, labelSize.height + baseLine)),
+            Scalar(255, 255, 255), CV_FILLED);
+        putText(Gcolor_mat, ss.str(), center,
+                FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0,0,0));
+
+        // calculate length to midline
+        length_to_mid = abs(moment.m10 / moment.m00-160)*depth_length_coefficient(magic_distance)/320;
+        cout << length_to_mid << endl;
 
 
         imshow(window_name, Gcolor_mat);
         if (waitKey(1) >= 0) break;
         imshow("heatmap", depth_mat);
-        this_meter = magic_distance;
+        this_x_meter = magic_distance;
         auto end_time = clock();
-        y_vel = (this_meter - last_meter)/(end_time-start_time)*CLOCKS_PER_SEC;
-        last_meter = this_meter;
+        x_vel = (this_x_meter - last_x_meter)/(end_time-start_time)*CLOCKS_PER_SEC;
+        last_x_meter = this_x_meter;
         // std::cout<<1000.000*(end_time-start_time)/CLOCKS_PER_SEC<<std::endl;
 
         
 
     }
     
-    double dmean = 0;
-    double dvariance = 0; 
+    // double dmean = 0;
+    // double dvariance = 0; 
 
     // for(int i=30 ; i<60; i++){
 
