@@ -24,6 +24,7 @@ const float meanVal       = 127.5;
 int mat_columns;
 int mat_rows;
 int length_to_mid;
+double alpha=0;
 
 double depth_length_coefficient(double depth){
     
@@ -170,9 +171,14 @@ int main(int argc, char** argv) try
     // double distance[60] = {0};
     double last_x_meter = 0;
     double this_x_meter = 0;
+    double last_y_meter = 0;
+    double this_y_meter = 0;
     double y_vel = 0;
     double x_vel = 0;
     double velocity;
+    int count = 0;
+    double alphaset[5] = {0};
+    double alpha_mean=0;
     // int para1 = 200 ,para2 = 50;
 
 
@@ -322,18 +328,34 @@ int main(int argc, char** argv) try
 
         // calculate length to midline
         length_to_mid = abs(moment.m10 / moment.m00-160)*depth_length_coefficient(magic_distance)/320;
-        cout << length_to_mid << endl;
+        cout << endl<<"length to midline ="<<length_to_mid<<"    ";
 
 
         imshow(window_name, Gcolor_mat);
         if (waitKey(1) >= 0) break;
         imshow("heatmap", depth_mat);
         this_x_meter = magic_distance;
+        this_y_meter = length_to_mid;
         auto end_time = clock();
         x_vel = (this_x_meter - last_x_meter)/(end_time-start_time)*CLOCKS_PER_SEC;
-        last_x_meter = this_x_meter;
         // std::cout<<1000.000*(end_time-start_time)/CLOCKS_PER_SEC<<std::endl;
-
+        cout<<"velocity = "<<x_vel<<"       ";
+        if(x_vel<-2){
+            count += 1;
+            alpha = atan(abs(last_y_meter - this_y_meter)/abs(this_x_meter-last_x_meter)/100);
+            cout<<"alpha  ="<<alpha<<"      ";
+            if( count <= 5){
+            alphaset[count-1]=alpha;
+            alpha_mean+= alphaset[count-1];
+            }
+        }
+        
+        if(count ==5 ){
+            alpha_mean /= 5;
+            cout<<"alpha mean=  "<<alpha_mean;
+        }
+        last_x_meter = this_x_meter;
+        last_y_meter = this_y_meter;
         
 
     }
