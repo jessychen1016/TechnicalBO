@@ -176,9 +176,13 @@ int main(int argc, char** argv) try
     double y_vel = 0;
     double x_vel = 0;
     double velocity;
-    int count = 0;
     double alphaset[5] = {0};
     double alpha_mean=0;
+    double move_distance=0;
+    double first_magic_distance=5;
+    int count = 0;
+    int magic_distance_flag = 1;
+    string move_direction ;
     // int para1 = 200 ,para2 = 50;
 
 
@@ -216,11 +220,12 @@ int main(int argc, char** argv) try
 
 
         GaussianBlur(color_mat,Gcolor_mat,Size(11,11),0);
+        GaussianBlur(depth_mat,Gdepth_mat,Size(11,11),0);
         
 
         // Crop both color and depth frames
         Gcolor_mat = Gcolor_mat(crop);
-        depth_mat = depth_mat(crop);
+        Gdepth_mat = Gdepth_mat(crop);
 
          //start of mod
         mat_rows = Gcolor_mat.rows;
@@ -285,7 +290,7 @@ int main(int argc, char** argv) try
             moment.m00 = 1;
         }
         Point moment_center (moment.m10 / moment.m00, moment.m01/moment.m00);
-        depth_m = depth_mat.at<double>((int)moment.m01 / moment.m00,(int)moment.m10/moment.m00);
+        depth_m = Gdepth_mat.at<double>((int)moment.m01 / moment.m00,(int)moment.m10/moment.m00);
         double magic_distance = depth_m[0] * 1.062;
         std::ostringstream ss;
         ss << " Ball Detected ";
@@ -296,13 +301,17 @@ int main(int argc, char** argv) try
         rectangle(Gcolor_mat, object, Scalar(0, 255, 0));
         int baseLine = 0;
         Size labelSize = getTextSize(ss.str(), FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
-
         auto center = (object.br() + object.tl())*0.5;
         center.x = center.x - labelSize.width / 2;
         center.y = center.y + 30 ;
-
+        rectangle(Gcolor_mat, Rect(Point(center.x, center.y - labelSize.height),
+        Size(labelSize.width, labelSize.height + baseLine)),
+        Scalar(255, 255, 255), CV_FILLED);
+        putText(Gcolor_mat, ss.str(), center,
+        FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0,0,0));
 
         velocity = sqrt(y_vel*y_vel + x_vel*x_vel);
+        // velocity window
         std::ostringstream ss_v;
         ss_v << " The speed is ";
         ss_v << std::setprecision(3) << velocity << " m/s" ;
@@ -310,7 +319,7 @@ int main(int argc, char** argv) try
         Size labelSize_v = getTextSize(ss_v.str(), FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
 
         auto center_v = (object.br() + object.tl())*0.5;
-        center_v.x = 80- labelSize_v.width / 2;
+        center_v.x = 160- labelSize_v.width / 2;
         center_v.y = 475;
 
         rectangle(Gcolor_mat, Rect(Point(center_v.x, center_v.y - labelSize_v.height),
@@ -318,29 +327,48 @@ int main(int argc, char** argv) try
             Scalar(255, 255, 255), CV_FILLED);
         putText(Gcolor_mat, ss_v.str(), center_v,
                 FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0,0,0));
+
+        // move direction window
+        
+        ostringstream ss_move_direction;
+        ss_move_direction << " Move to the ";
+        ss_move_direction << move_direction;
+        ss_move_direction << " for ";
+        ss_move_direction << setprecision(3) << move_distance << " cm" ;
+        String conf_move_direction(ss_v.str());
+        Size labelSize_move_direction = getTextSize(ss_move_direction.str(), FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+
+        auto center_move_direction = (object.br() + object.tl())*0.5;
+        center_move_direction.x = 160- labelSize_move_direction.width / 2;
+        center_move_direction.y = 450;
+
+        rectangle(Gcolor_mat, Rect(Point(center_move_direction.x, center_move_direction.y - labelSize_move_direction.height),
+            Size(labelSize_move_direction.width, labelSize_move_direction.height + baseLine)),
+            Scalar(255, 255, 255), CV_FILLED);
+        putText(Gcolor_mat, ss_move_direction.str(), center_move_direction,
+                FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0,0,0));
         
 
-        rectangle(Gcolor_mat, Rect(Point(center.x, center.y - labelSize.height),
-            Size(labelSize.width, labelSize.height + baseLine)),
-            Scalar(255, 255, 255), CV_FILLED);
-        putText(Gcolor_mat, ss.str(), center,
-                FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0,0,0));
+
 
         // calculate length to midline
-        length_to_mid = abs(moment.m10 / moment.m00-160)*depth_length_coefficient(magic_distance)/320;
+        length_to_mid = (moment.m10 / moment.m00-160)*depth_length_coefficient(magic_distance)/320;
         cout << endl<<"length to midline ="<<length_to_mid<<"    ";
-
+        if (magic_distance_flag ==1 && abs(length_to_mid) == 0){
+            first_magic_distance = magic_distance;
+            magic_distance_flag = 0;
+        }
 
         imshow(window_name, Gcolor_mat);
         if (waitKey(1) >= 0) break;
         imshow("heatmap", depth_mat);
         this_x_meter = magic_distance;
-        this_y_meter = length_to_mid;
+        this_y_meter = abs(length_to_mid);
         auto end_time = clock();
         x_vel = (this_x_meter - last_x_meter)/(end_time-start_time)*CLOCKS_PER_SEC;
         // std::cout<<1000.000*(end_time-start_time)/CLOCKS_PER_SEC<<std::endl;
         cout<<"velocity = "<<x_vel<<"       ";
-        if(x_vel<-2){
+        if(x_vel<-1){
             count += 1;
             alpha = atan(abs(last_y_meter - this_y_meter)/abs(this_x_meter-last_x_meter)/100);
             cout<<"alpha  ="<<alpha<<"      ";
@@ -353,11 +381,21 @@ int main(int argc, char** argv) try
         if(count ==5 ){
             alpha_mean /= 5;
             cout<<"alpha mean=  "<<alpha_mean;
+            move_distance = alpha_mean*first_magic_distance*100;
+            cout<<endl<<"the depth for you to react ="<<first_magic_distance-magic_distance<<endl;
+            count = 6;
+        }
+        if(length_to_mid < 0 ){
+            move_direction = "left";
+        }
+        else{
+            move_direction = "right";
         }
         last_x_meter = this_x_meter;
         last_y_meter = this_y_meter;
-        
-
+        cout<<"  first_magic_distance ="<<first_magic_distance<<endl;
+        cout<<"  move distance ="<<move_distance<<endl;
+        // cout<<1000.000*(end_time-start_time)/CLOCKS_PER_SEC<<endl;
     }
     
     // double dmean = 0;
