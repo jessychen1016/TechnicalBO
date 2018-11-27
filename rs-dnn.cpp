@@ -11,9 +11,13 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include <opencv2/core/core.hpp>
 #include <cmath>
-
+#include <omp.h>
 #include "iostream"
 #include "time.h"
+#include <chrono>
+#include <thread>
+#include <actionmodule.h>
+#define MAX_THREADS 8
 
 
 const size_t inWidth      = 600;
@@ -33,15 +37,22 @@ double depth_length_coefficient(double depth){
     return length;
 
 }
-
-int main(int argc, char** argv) try
-{
     using namespace cv;
     using namespace cv::dnn;
     using namespace rs2;
     using namespace std;
     using namespace rs400;
 
+int main(int argc, char** argv) try
+{
+
+
+// #ifdef _OPENMP
+
+//     cout << "OpenMP supported !" << endl;
+
+// # endif
+    ZActionModule::instance();
     context ctx;
     auto devices = ctx.query_devices();
     size_t device_count = devices.size();
@@ -69,50 +80,6 @@ int main(int argc, char** argv) try
         cout << "Current device doesn't support advanced-mode!\n";
         return EXIT_FAILURE;
     }
-
-    // rs2_frame_queue* rs2_create_frame_queue;
-    // rs2_processing_block* rs2_create_disparity_transform_block;
-    // rs2_processing_block* rs2_create_decimation_filter_block;
-    // rs2_processing_block* rs2_create_hole_filling_filter_block;
-    // rs2_processing_block* rs2_create_spatial_filter_block;
-    // rs2_processing_block* rs2_create_temporal_filter_block;
-    
-
-    // //Disparity_Transform
-    // rs2_frame_queue* rs2_create_frame_queue;
-    // rs2_processing_block* rs2_create_disparity_transform_block;
-    // void rs2_start_processing_queue(rs2_create_disparity_transform_block, rs2_create_frame_queue, rs2_error** error);
-    // void rs2_set_option(rs2_create_disparity_transform_block, RS2_OPTION_FILTER_MAGNITUDE, float value, rs2_error** error);
-    // void rs2_set_option(rs2_create_disparity_transform_block, RS2_OPTION_FILTER_SMOOTH_ALPHA, float value, rs2_error** error);
-    // void rs2_set_option(rs2_create_disparity_transform_block, RS2_OPTION_FILTER_SMOOTH_DELTA, float value, rs2_error** error);
-    // void rs2_set_option(rs2_create_disparity_transform_block, RS2_OPTION_HOLES_FILL, float value, rs2_error** error);
-
-
-    // // Decimation
-    // rs2_frame_queue* rs2_create_frame_queue;
-    // void rs2_start_processing_queue(rs2_create_decimation_filter_block, rs2_create_frame_queue, rs2_error** error);
-    // void rs2_set_option(rs2_create_decimation_filter_block, RS2_OPTION_FILTER_MAGNITUDE, float value, rs2_error** error);
-
-    // // Spacial_Filter
-    // rs2_frame_queue* rs2_create_frame_queue;
-    // void rs2_start_processing_queue(rs2_create_spatial_filter_block, rs2_create_frame_queue, rs2_error** error);
-    // void rs2_set_option(rs2_create_spatial_filter_block, RS2_OPTION_FILTER_MAGNITUDE, float value, rs2_error** error);
-    // void rs2_set_option(rs2_create_spatial_filter_block, RS2_OPTION_FILTER_SMOOTH_ALPHA, float value, rs2_error** error);
-    // void rs2_set_option(rs2_create_spatial_filter_block, RS2_OPTION_FILTER_SMOOTH_DELTA, float value, rs2_error** error);
-    // void rs2_set_option(rs2_create_spatial_filter_block, RS2_OPTION_HOLES_FILL, float value, rs2_error** error);
-
-    // // Temporal_Filter
-    // rs2_frame_queue* rs2_create_frame_queue;
-    // void rs2_start_processing_queue(rs2_create_temporal_filter_block, rs2_create_frame_queue, rs2_error** error);
-    // void rs2_set_option(rs2_create_temporal_filter_block, RS2_OPTION_FILTER_SMOOTH_ALPHA, float value, rs2_error** error);
-    // void rs2_set_option(rs2_create_temporal_filter_block, RS2_OPTION_FILTER_SMOOTH_DELTA, float value, rs2_error** error);
-    // void rs2_set_option(rs2_create_temporal_filter_block, RS2_OPTION_HOLES_FILL, float value, rs2_error** error);
-    // // Hole_Filling
-    // rs2_frame_queue* rs2_create_frame_queue;
-    // void rs2_start_processing_queue(rs2_create_hole_filling_block, rs2_create_frame_queue, rs2_error** error);
-    // void rs2_set_option(rs2_create_hole_filling_filter_block, RS2_OPTION_HOLES_FILL, float value, rs2_error** error);
-
-
    
     // Start streaming from Intel RealSense Camera
     pipeline pipe;
@@ -185,12 +152,11 @@ int main(int argc, char** argv) try
     string move_direction ;
     // int para1 = 200 ,para2 = 50;
 
-
      while (cvGetWindowHandle(window_name))
     // for(int i = 0; i<60 && cvGetWindowHandle(window_name) ; i++)
     {
-
         auto start_time = clock();
+        // auto start_time_1 = clock();
 
         // Wait for the next set of frames
         auto data = pipe.wait_for_frames();
@@ -254,7 +220,8 @@ int main(int argc, char** argv) try
     //   imshow("Original", Gcolor_mat); //show the original image
     
         char key = (char) waitKey(1);
-                
+        // auto end_time_1 = clock();
+        // cout<<"time before contour"<<1000.000*(end_time_1-start_time_1)/CLOCKS_PER_SEC<<std::endl;
         //end of mod
     //    vector<Vec3f> circles;
     //    HoughCircles(imgThresholded,circles,CV_HOUGH_GRADIENT,1,1000,para1,para2,0,1000);
@@ -312,9 +279,9 @@ int main(int argc, char** argv) try
 
         velocity = sqrt(y_vel*y_vel + x_vel*x_vel);
         // velocity window
-        std::ostringstream ss_v;
+        ostringstream ss_v;
         ss_v << " The speed is ";
-        ss_v << std::setprecision(3) << velocity << " m/s" ;
+        ss_v <<setprecision(3) << velocity << " m/s" ;
         String conf_v(ss_v.str());
         Size labelSize_v = getTextSize(ss_v.str(), FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
 
@@ -395,7 +362,33 @@ int main(int argc, char** argv) try
         last_y_meter = this_y_meter;
         cout<<"  first_magic_distance ="<<first_magic_distance<<endl;
         cout<<"  move distance ="<<move_distance<<endl;
-        // cout<<1000.000*(end_time-start_time)/CLOCKS_PER_SEC<<endl;
+        cout<<"time in a while"<<1000.000*(end_time-start_time)/CLOCKS_PER_SEC<<endl;
+
+        if(length_to_mid < -0){
+            if(length_to_mid >= -10){
+            ZActionModule::instance()->sendPacket(2, 0, 0,-5);
+		    std::this_thread::sleep_for(std::chrono::milliseconds(5));                
+            }
+            else{
+            ZActionModule::instance()->sendPacket(2, 0, 0,-30);
+		    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+            }
+        }
+        else if(length_to_mid > 0){
+            if(length_to_mid <= 10){
+            ZActionModule::instance()->sendPacket(2, 0, 0, 5);
+		    std::this_thread::sleep_for(std::chrono::milliseconds(5));                
+            }
+            else{
+            ZActionModule::instance()->sendPacket(2, 0, 0, 30);
+		    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+            }
+        }
+        else{
+            ZActionModule::instance()->sendPacket(2, 0, 0, 0);
+		    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        }
+
     }
     
     // double dmean = 0;

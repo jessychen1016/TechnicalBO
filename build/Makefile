@@ -123,6 +123,33 @@ RealSenseDNNExample/fast:
 	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/build
 .PHONY : RealSenseDNNExample/fast
 
+include/actionmodule.o: include/actionmodule.cpp.o
+
+.PHONY : include/actionmodule.o
+
+# target to build an object file
+include/actionmodule.cpp.o:
+	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o
+.PHONY : include/actionmodule.cpp.o
+
+include/actionmodule.i: include/actionmodule.cpp.i
+
+.PHONY : include/actionmodule.i
+
+# target to preprocess a source file
+include/actionmodule.cpp.i:
+	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.i
+.PHONY : include/actionmodule.cpp.i
+
+include/actionmodule.s: include/actionmodule.cpp.s
+
+.PHONY : include/actionmodule.s
+
+# target to generate assembly for a file
+include/actionmodule.cpp.s:
+	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.s
+.PHONY : include/actionmodule.cpp.s
+
 rs-dnn.o: rs-dnn.cpp.o
 
 .PHONY : rs-dnn.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... RealSenseDNNExample"
 	@echo "... edit_cache"
+	@echo "... include/actionmodule.o"
+	@echo "... include/actionmodule.i"
+	@echo "... include/actionmodule.s"
 	@echo "... rs-dnn.o"
 	@echo "... rs-dnn.i"
 	@echo "... rs-dnn.s"

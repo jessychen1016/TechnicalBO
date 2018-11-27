@@ -23,21 +23,36 @@ endif()
 
 find_package(OpenCV REQUIRED)
 
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Network REQUIRED)
+
+
 set(DEPENDENCIES realsense2 ${OpenCV_LIBS}
                  /home/jessy/librealsense/wrappers/librealsense2.so)
 
 add_executable(${projectname}            
                rs-dnn.cpp
-               cv-helpers.hpp)
+               cv-helpers.hpp
+               include/actionmodule.cpp)
 target_link_libraries(${projectname} ${DEPENDENCIES}
-)
+                        Qt5::Core 
+                        Qt5::Network
+                        )
 include_directories(include
                     examples
                     include/third-party
                     include/third-party/glfw
                     include/third-party/imgui
                     include/librealsense2
-                    include/common)
+                    include/common
+                    ${CMAKE_CURRENT_LIST_DIR}/include
+				    ${Qt5Core_INCLUDE_DIRS}
+				    ${Qt5Network_INCLUDE_DIRS})
+
+add_definitions(${Qt5Core_DEFINITIONS}
+				${Qt5Network_DEFINITIONS})
+
+
 set_target_properties (${projectname} PROPERTIES
     FOLDER "Examples/OpenCV"
 )
