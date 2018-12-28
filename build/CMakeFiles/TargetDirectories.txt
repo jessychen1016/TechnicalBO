@@ -1,3 +1,3 @@
-/home/jessy/Desktop/dnn_example/build/CMakeFiles/rebuild_cache.dir
-/home/jessy/Desktop/dnn_example/build/CMakeFiles/RealSenseDNNExample.dir
-/home/jessy/Desktop/dnn_example/build/CMakeFiles/edit_cache.dir
+/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles/rebuild_cache.dir
+/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles/RealSenseDNNExample.dir
+/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles/edit_cache.dir

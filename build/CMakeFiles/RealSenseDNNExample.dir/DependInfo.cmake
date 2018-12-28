@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/jessy/Desktop/dnn_example/include/actionmodule.cpp" "/home/jessy/Desktop/dnn_example/build/CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o"
-  "/home/jessy/Desktop/dnn_example/rs-dnn.cpp" "/home/jessy/Desktop/dnn_example/build/CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o"
+  "/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/include/actionmodule.cpp" "/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o"
+  "/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/rs-dnn1.cpp" "/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

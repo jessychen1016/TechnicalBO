@@ -1,4 +1,4 @@
-# Install script for directory: /home/jessy/Desktop/dnn_example
+# Install script for directory: /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/jessy/Desktop/dnn_example/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

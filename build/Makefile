@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jessy/Desktop/dnn_example
+CMAKE_SOURCE_DIR = /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jessy/Desktop/dnn_example/build
+CMAKE_BINARY_DIR = /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jessy/Desktop/dnn_example/build/CMakeFiles /home/jessy/Desktop/dnn_example/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jessy/Desktop/dnn_example/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -150,32 +150,32 @@ include/actionmodule.cpp.s:
 	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.s
 .PHONY : include/actionmodule.cpp.s
 
-rs-dnn.o: rs-dnn.cpp.o
+rs-dnn1.o: rs-dnn1.cpp.o
 
-.PHONY : rs-dnn.o
+.PHONY : rs-dnn1.o
 
 # target to build an object file
-rs-dnn.cpp.o:
-	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o
-.PHONY : rs-dnn.cpp.o
+rs-dnn1.cpp.o:
+	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o
+.PHONY : rs-dnn1.cpp.o
 
-rs-dnn.i: rs-dnn.cpp.i
+rs-dnn1.i: rs-dnn1.cpp.i
 
-.PHONY : rs-dnn.i
+.PHONY : rs-dnn1.i
 
 # target to preprocess a source file
-rs-dnn.cpp.i:
-	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.i
-.PHONY : rs-dnn.cpp.i
+rs-dnn1.cpp.i:
+	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.i
+.PHONY : rs-dnn1.cpp.i
 
-rs-dnn.s: rs-dnn.cpp.s
+rs-dnn1.s: rs-dnn1.cpp.s
 
-.PHONY : rs-dnn.s
+.PHONY : rs-dnn1.s
 
 # target to generate assembly for a file
-rs-dnn.cpp.s:
-	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.s
-.PHONY : rs-dnn.cpp.s
+rs-dnn1.cpp.s:
+	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.s
+.PHONY : rs-dnn1.cpp.s
 
 # Help Target
 help:
@@ -189,9 +189,9 @@ help:
 	@echo "... include/actionmodule.o"
 	@echo "... include/actionmodule.i"
 	@echo "... include/actionmodule.s"
-	@echo "... rs-dnn.o"
-	@echo "... rs-dnn.i"
-	@echo "... rs-dnn.s"
+	@echo "... rs-dnn1.o"
+	@echo "... rs-dnn1.i"
+	@echo "... rs-dnn1.s"
 .PHONY : help
 
 

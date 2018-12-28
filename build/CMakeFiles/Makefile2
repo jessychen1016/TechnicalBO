@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jessy/Desktop/dnn_example
+CMAKE_SOURCE_DIR = /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jessy/Desktop/dnn_example/build
+CMAKE_BINARY_DIR = /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/RealSenseDNNExample.dir
@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/jessy/Desktop/dnn_example/build
 CMakeFiles/RealSenseDNNExample.dir/all:
 	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/depend
 	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jessy/Desktop/dnn_example/build/CMakeFiles --progress-num=1,2,3 "Built target RealSenseDNNExample"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles --progress-num=1,2,3 "Built target RealSenseDNNExample"
 .PHONY : CMakeFiles/RealSenseDNNExample.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/RealSenseDNNExample.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/RealSenseDNNExample.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jessy/Desktop/dnn_example/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/RealSenseDNNExample.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jessy/Desktop/dnn_example/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles 0
 .PHONY : CMakeFiles/RealSenseDNNExample.dir/rule
 
 # Convenience name for target.

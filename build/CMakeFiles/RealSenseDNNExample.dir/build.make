@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jessy/Desktop/dnn_example
+CMAKE_SOURCE_DIR = /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jessy/Desktop/dnn_example/build
+CMAKE_BINARY_DIR = /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/RealSenseDNNExample.dir/depend.make
@@ -57,42 +57,42 @@ include CMakeFiles/RealSenseDNNExample.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/RealSenseDNNExample.dir/flags.make
 
-CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o: CMakeFiles/RealSenseDNNExample.dir/flags.make
-CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o: ../rs-dnn.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jessy/Desktop/dnn_example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o -c /home/jessy/Desktop/dnn_example/rs-dnn.cpp
+CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o: CMakeFiles/RealSenseDNNExample.dir/flags.make
+CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o: ../rs-dnn1.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o -c /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/rs-dnn1.cpp
 
-CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jessy/Desktop/dnn_example/rs-dnn.cpp > CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.i
+CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/rs-dnn1.cpp > CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.i
 
-CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jessy/Desktop/dnn_example/rs-dnn.cpp -o CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.s
+CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/rs-dnn1.cpp -o CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.s
 
-CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o.requires:
+CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o.requires:
 
-.PHONY : CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o.requires
+.PHONY : CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o.requires
 
-CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o.provides: CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o.requires
-	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o.provides.build
-.PHONY : CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o.provides
+CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o.provides: CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o.requires
+	$(MAKE) -f CMakeFiles/RealSenseDNNExample.dir/build.make CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o.provides.build
+.PHONY : CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o.provides
 
-CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o.provides.build: CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o
+CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o.provides.build: CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o
 
 
 CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o: CMakeFiles/RealSenseDNNExample.dir/flags.make
 CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o: ../include/actionmodule.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jessy/Desktop/dnn_example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o -c /home/jessy/Desktop/dnn_example/include/actionmodule.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o -c /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/include/actionmodule.cpp
 
 CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jessy/Desktop/dnn_example/include/actionmodule.cpp > CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/include/actionmodule.cpp > CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.i
 
 CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jessy/Desktop/dnn_example/include/actionmodule.cpp -o CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/include/actionmodule.cpp -o CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.s
 
 CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o.requires:
 
@@ -107,13 +107,13 @@ CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o.provides.build: CM
 
 # Object files for target RealSenseDNNExample
 RealSenseDNNExample_OBJECTS = \
-"CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o" \
+"CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o" \
 "CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o"
 
 # External object files for target RealSenseDNNExample
 RealSenseDNNExample_EXTERNAL_OBJECTS =
 
-RealSenseDNNExample: CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o
+RealSenseDNNExample: CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o
 RealSenseDNNExample: CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o
 RealSenseDNNExample: CMakeFiles/RealSenseDNNExample.dir/build.make
 RealSenseDNNExample: /usr/local/lib/libopencv_dnn.so.3.4.3
@@ -125,6 +125,11 @@ RealSenseDNNExample: /usr/local/lib/libopencv_superres.so.3.4.3
 RealSenseDNNExample: /usr/local/lib/libopencv_videostab.so.3.4.3
 RealSenseDNNExample: /usr/local/lib/libopencv_viz.so.3.4.3
 RealSenseDNNExample: /home/jessy/librealsense/wrappers/librealsense2.so
+RealSenseDNNExample: /usr/lib/x86_64-linux-gnu/libglfw.so
+RealSenseDNNExample: /usr/lib/x86_64-linux-gnu/libglut.so
+RealSenseDNNExample: /usr/lib/x86_64-linux-gnu/libGL.so
+RealSenseDNNExample: /usr/lib/x86_64-linux-gnu/libGLU.so
+RealSenseDNNExample: /usr/lib/x86_64-linux-gnu/libGLEW.so
 RealSenseDNNExample: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.9.5
 RealSenseDNNExample: /usr/local/lib/libopencv_calib3d.so.3.4.3
 RealSenseDNNExample: /usr/local/lib/libopencv_features2d.so.3.4.3
@@ -138,7 +143,7 @@ RealSenseDNNExample: /usr/local/lib/libopencv_imgproc.so.3.4.3
 RealSenseDNNExample: /usr/local/lib/libopencv_core.so.3.4.3
 RealSenseDNNExample: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.9.5
 RealSenseDNNExample: CMakeFiles/RealSenseDNNExample.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jessy/Desktop/dnn_example/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable RealSenseDNNExample"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable RealSenseDNNExample"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RealSenseDNNExample.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -146,7 +151,7 @@ CMakeFiles/RealSenseDNNExample.dir/build: RealSenseDNNExample
 
 .PHONY : CMakeFiles/RealSenseDNNExample.dir/build
 
-CMakeFiles/RealSenseDNNExample.dir/requires: CMakeFiles/RealSenseDNNExample.dir/rs-dnn.cpp.o.requires
+CMakeFiles/RealSenseDNNExample.dir/requires: CMakeFiles/RealSenseDNNExample.dir/rs-dnn1.cpp.o.requires
 CMakeFiles/RealSenseDNNExample.dir/requires: CMakeFiles/RealSenseDNNExample.dir/include/actionmodule.cpp.o.requires
 
 .PHONY : CMakeFiles/RealSenseDNNExample.dir/requires
@@ -156,6 +161,6 @@ CMakeFiles/RealSenseDNNExample.dir/clean:
 .PHONY : CMakeFiles/RealSenseDNNExample.dir/clean
 
 CMakeFiles/RealSenseDNNExample.dir/depend:
-	cd /home/jessy/Desktop/dnn_example/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jessy/Desktop/dnn_example /home/jessy/Desktop/dnn_example /home/jessy/Desktop/dnn_example/build /home/jessy/Desktop/dnn_example/build /home/jessy/Desktop/dnn_example/build/CMakeFiles/RealSenseDNNExample.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build /home/jessy/Desktop/BlackOutMissionTwo/TechnicalBO/build/CMakeFiles/RealSenseDNNExample.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/RealSenseDNNExample.dir/depend
 
